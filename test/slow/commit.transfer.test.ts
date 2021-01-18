@@ -11,6 +11,7 @@ import { ethers } from "hardhat";
 import { hexToUint8Array, randHex } from "../../ts/utils";
 import { Result } from "../../ts/interfaces";
 import { Group, txTransferFactory } from "../../ts/factory";
+import { deployKeyless } from "../../ts/deployment/deploy";
 
 const DOMAIN_HEX = randHex(32);
 const DOMAIN = hexToUint8Array(DOMAIN_HEX);
@@ -28,6 +29,7 @@ describe("Rollup Transfer Commitment", () => {
     before(async function() {
         await mcl.init();
         const [signer] = await ethers.getSigners();
+        await deployKeyless(signer, false);
         const registryContract = await new BlsAccountRegistryFactory(
             signer
         ).deploy();

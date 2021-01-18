@@ -15,6 +15,7 @@ import { Result } from "../../ts/interfaces";
 import { constants } from "ethers";
 import { MassMigrationCommitment } from "../../ts/commitments";
 import { EMPTY_SIGNATURE } from "../../ts/constants";
+import { deployKeyless } from "../../ts/deployment/deploy";
 
 const DOMAIN = hexToUint8Array(randHex(32));
 const COMMIT_SIZE = 32;
@@ -31,6 +32,7 @@ describe("Rollup Mass Migration", () => {
     before(async function() {
         await mcl.init();
         const [signer] = await ethers.getSigners();
+        await deployKeyless(signer, false);
         const registryContract = await new BlsAccountRegistryFactory(
             signer
         ).deploy();
