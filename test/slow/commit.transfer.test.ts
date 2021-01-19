@@ -27,6 +27,7 @@ describe("Rollup Transfer Commitment", () => {
     let users: Group;
 
     before(async function() {
+        this.timeout(10000);
         await mcl.init();
         const [signer] = await ethers.getSigners();
         await deployKeyless(signer, false);
